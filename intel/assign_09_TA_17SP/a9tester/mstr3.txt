@@ -1,0 +1,53 @@
+--------------------------------------------------
+CS 218 - Assignment #9
+
+Enter values (return to end input).
+Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, number above maximum value. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Error, number above maximum value. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): --------------------------------------------------
+
+Program Results
+
+Sorted List: 
+  1110    1110    1111    1111    1114    1115    1115  
+  1115    1116    1117    1120    1123    1124    1124  
+  1125    1125    1126    1127    1127    1127    1128  
+  1129    1133    1135    1140    1140    1141    1142  
+  1143    1144    1145    1146    1146    1153    1155  
+  1155    1156    1161    1161    1162    1165    1165  
+  1167    1168    1169    1188    1212    1215    1219  
+  1226    1256    1257    1259    1437    2112    2113  
+  2113    2115    2117    2117    2118    2119    2121  
+  2121    2127    2143    2144    2147    2151    2172  
+  2179    2191    3122    3126    3132    3134    3138  
+  3149    3167    3177    3184    4117    4153    5115  
+  5126    5128    5151    5174    6129    6135    7183  
+  9112    9113    9114    9117    9119    9130    9153  
+  9176    9199  
+
+      Length =              100
+  Est Median =             1644
+     Minimum =             1110
+      Median =             1241
+     Maximum =             9199
+     Average =             2647
+       Beta  =      60379033665
+ Err Percent =               32
+

@@ -1,0 +1,25 @@
+--------------------------------------------------
+CS 218 - Assignment #9
+
+Enter values (return to end input).
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, user input exceeded length, input ignored. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): --------------------------------------------------
+
+Program Results
+
+Sorted List: 
+  1845    1845    1845    1845    1857    2025    2197  
+  2197    2338    4042    4394    4394    4561    4561  
+  6591    6591    6591    6744    8788    8788   10985  
+ 13182   15379   17576   23858   23986   28355  
+
+      Length =               27
+  Est Median =             5009
+     Minimum =             1845
+      Median =             4561
+     Maximum =            28355
+     Average =             8050
+       Beta  =    1647070624021
+ Err Percent =                9
+
