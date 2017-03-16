@@ -103,106 +103,106 @@
 
 ;	YOUR CODE GOES HERE
 
-;%%int2triStart:
-;;	mov	rax, 0
-;	mov 	rsi, 0
-;	mov 	rcx, 0
-;	mov	eax, %1
-;
-;%%int2triConvert:
-;	cmp 	eax, 0
-;	je 	%%int2triConvertDone
-;
-;	mov 	rdx, 0
-;	mov 	r9d, dword [weight]
-;	div 	r9d			; rSum / 13
-;
-;	push 	rdx
-;	inc 	rcx			; count++
-;	jmp 	%%int2triConvert
-;
-;%%int2triConvertDone:
-;	mov	rbx, %2
-;	mov 	r10, MAX_STR_SIZE
-;	sub 	r10, rcx		; rcx = MAX - ;count
-;	dec	r10			; spaces
-;
-;%%insertSpaces:
-;	cmp 	r10, 0
-;	je 	%%insertSpacesDone
-;	mov	byte [rbx + rsi], " "
-;	inc 	rsi
-;	dec	r10
-;	jmp 	%%insertSpaces
-;
-;%%insertSpacesDone:
-;	pop	rax
-;	cmp	al, 10
-;	jl	%%zeroNineConvert
-;	sub 	al, 10
-;	add 	al, "A"			; if(rem >= 10)
-;	jmp 	%%insertChar
-;
-;%%zeroNineConvert:
-;	add 	al, "0"			; if(rem < 10)
-;
-;%%insertChar:
-;	mov 	byte [rbx + rsi], al 	; str[i] = char
-;	inc 	rsi 			; i++
-;	loop 	%%insertSpacesDone
-;
-;	mov	byte [rbx + rsi], NULL
+%%int2triStart:
+;	mov	rax, 0
+	mov 	rsi, 0
+	mov 	rcx, 0
+	mov	eax, %1
+
+%%int2triConvert:
+	cmp 	eax, 0
+	je 	%%int2triConvertDone
+
+	mov 	rdx, 0
+	mov 	r9d, dword [weight]
+	div 	r9d			; rSum / 13
+
+	push 	rdx
+	inc 	rcx			; count++
+	jmp 	%%int2triConvert
+
+%%int2triConvertDone:
+	mov	rbx, %2
+	mov 	r10, MAX_STR_SIZE
+	sub 	r10, rcx		; rcx = MAX - ;count
+	dec	r10			; spaces
+
+%%insertSpaces:
+	cmp 	r10, 0
+	je 	%%insertSpacesDone
+	mov	byte [rbx + rsi], " "
+	inc 	rsi
+	dec	r10
+	jmp 	%%insertSpaces
+
+%%insertSpacesDone:
+	pop	rax
+	cmp	al, 10
+	jl	%%zeroNineConvert
+	sub 	al, 10
+	add 	al, "A"			; if(rem >= 10)
+	jmp 	%%insertChar
+
+%%zeroNineConvert:
+	add 	al, "0"			; if(rem < 10)
+
+%%insertChar:
+	mov 	byte [rbx + rsi], al 	; str[i] = char
+	inc 	rsi 			; i++
+	loop 	%%insertSpacesDone
+
+	mov	byte [rbx + rsi], NULL
 
 ; END MY CODE ===============================
 
-;       cnt = MAX_STR_SIZE - 1
-        mov     ecx, MAX_STR_SIZE
-        dec     ecx
-;       string(cnt) = NULL
-	mov 	rbx, %2
-        mov     byte[rbx + rcx], NULL
-;       cnt--
-        dec     ecx
-;       grab the integer you want to convert
-        mov     eax, %1
-;       while(answer != 0)
-%%convertInt:
-;               divide by 13
-        mov     edx, 0
-        div     dword[weight]
-;               if(rem <_ 9)
-        cmp     edx, 9
-        jbe     %%lessNine
-        jmp     %%skpLN
-%%lessNine:
-;                       string(cnt) = rem + "0"
-        add     edx, 0x30
-        mov     byte[rbx + rcx], dl
-        dec     ecx
-        jmp     %%checkDone
-;               if(rem >_ 12)
-%%skpLN:
-        cmp     edx, 12
-        jbe     %%lessTwelve
-        jmp     %%checkDone
-%%lessTwelve:
-;                       string(cnt) = rem - 10 + "A"
-        sub     edx, dword[ddTen]
-        add     edx, 0x41
-        mov     byte[rbx + rcx], dl
-        dec     ecx
-;       end while
-%%checkDone:
-        cmp     eax, 0
-        jne     %%convertInt
-%%fillSpace:
-;               string(cnt) = space
-        mov     byte[rbx + rcx], SPACE
-        dec     ecx
-        cmp     ecx, 0
-        jne     %%fillSpace
-        mov 	byte[rbx + rcx], SPACE
-;end
+;;       cnt = MAX_STR_SIZE - 1
+;        mov     ecx, MAX_STR_SIZE
+;        dec     ecx
+;;       string(cnt) = NULL
+;	mov 	rbx, %2
+;        mov     byte[rbx + rcx], NULL
+;;       cnt--
+;        dec     ecx
+;;       grab the integer you want to convert
+;        mov     eax, %1
+;;       while(answer != 0)
+;%%convertInt:
+;;               divide by 13
+;        mov     edx, 0
+;        div     dword[weight]
+;;               if(rem <_ 9)
+;        cmp     edx, 9
+;        jbe     %%lessNine
+;        jmp     %%skpLN
+;%%lessNine:
+;;                       string(cnt) = rem + "0"
+;        add     edx, 0x30
+;        mov     byte[rbx + rcx], dl
+;        dec     ecx
+;        jmp     %%checkDone
+;;               if(rem >_ 12)
+;%%skpLN:
+;        cmp     edx, 12
+;        jbe     %%lessTwelve
+;        jmp     %%checkDone
+;%%lessTwelve:
+;;                       string(cnt) = rem - 10 + "A"
+;        sub     edx, dword[ddTen]
+;        add     edx, 0x41
+;        mov     byte[rbx + rcx], dl
+;        dec     ecx
+;;       end while
+;%%checkDone:
+;        cmp     eax, 0
+;        jne     %%convertInt
+;%%fillSpace:
+;;               string(cnt) = space
+;        mov     byte[rbx + rcx], SPACE
+;        dec     ecx
+;        cmp     ecx, 0
+;        jne     %%fillSpace
+;        mov 	byte[rbx + rcx], SPACE
+;;end
 
 %endmacro
 

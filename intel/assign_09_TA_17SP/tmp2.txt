@@ -1,0 +1,42 @@
+--------------------------------------------------
+CS 218 - Assignment #9
+
+Enter values (return to end input).
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): --------------------------------------------------
+
+Program Results
+
+Sorted List: 
+  1085    1104    1110    1111    1113    1113    1113  
+  1114    1114    1117    1121    1122    1123    1123  
+  1124    1124    1126    1126    1132    1138    1139  
+  1141    1141    1142    1144    1146    1154    1155  
+  1159    1163    1167    1167    1175    1191    1232  
+  1236    1236    1261    1286    1286    1307    1312  
+  1342    1384    1422    1431    1435    1435    1548  
+  1549    1566    1654    1675    2113    2113    2122  
+  2123    2126    2131    2131    2132    2141    2144  
+  2145    2155    2211    2219    2221    2236    2251  
+  2311    2311    2321    2321    2416    2431    2431  
+  2467    2521    2547    2611    2611    2611    2612  
+  2613    2621    2621    2621    2621    2621    2621  
+  2623    2631    2634    2641    2645    2651    2661  
+  2661    2664    2671    2721    2725    2733    2747  
+  2819    2821    2859    2947    2957  
+
+      Length =              110
+  Est Median =             1737
+     Minimum =             1085
+      Median =             2117
+     Maximum =             2957
+     Average =             1877
+       Beta  =       6053432129
+ Err Percent =               17
+

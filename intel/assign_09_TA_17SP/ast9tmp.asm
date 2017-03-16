@@ -151,10 +151,6 @@ section	.text
 
 ; 	CONVERT TRI TO INTEGER
 
-
-
-
-
 ;	YOUR CODE GOES HERE
 global rdTriNum
 rdTriNum:
@@ -198,7 +194,7 @@ bufferLp:
 
 leadingSpaces:
 	cmp 	r15, 0			; 	if(i == 0)
-	jmp 	bufferLp		; 		jmp bufferLp
+	je 	bufferLp		; 		jmp bufferLp
 
 storeChar:
 	mov 	byte [rbx], al 		; 	buffer[i] = char
@@ -289,12 +285,12 @@ cvtLowerCase:
 	add 	r15b, 10
 	jmp 	cvtCharDone
 
-cvtUpperCase:
+cvtUpperCase: 
 	sub 	r15b, "A"
 	add 	r15b, 10
 
 cvtCharDone:
-	add 	r11, r15
+	add 	r11, r15		; rSum += digit
 	inc 	rbx
 	jmp 	tri2IntLp
 
@@ -312,11 +308,11 @@ errorOverMaxEnd:
 	pop 	rdi 			; numberRead - addr
 	mov 	dword [rdi], r11d	; numberRead = rSum
 
-
 	mov	rax, SUCCESS
 	jmp 	rdTriNumEnd
 ; END STORE VALID VALUE
 
+; START ERRORS
 noInputTRUE:
 	mov 	rax, ENDOFINPUT
 	jmp 	rdTriNumEnd
@@ -333,6 +329,8 @@ errorOverMaxTRUE:
 	mov	rax, OVERMAX
 	mov 	r11, 0
 	jmp 	rdTriNumEnd
+	
+; END ERRORS
 
 	; ------------------ SCC Epilogue
 rdTriNumEnd:

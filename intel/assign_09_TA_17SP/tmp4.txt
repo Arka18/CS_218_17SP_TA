@@ -1,0 +1,73 @@
+--------------------------------------------------
+CS 218 - Assignment #9
+
+Enter values (return to end input).
+Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, number above maximum value. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, user input exceeded length, input ignored. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Error, invalid number. Please re-enter.
+Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): Enter Value (tridecimal): --------------------------------------------------
+
+Program Results
+
+Sorted List: 
+  1000    1000    1000    1110    1111    1112    1118  
+  1121    1124    1126    1132    1137    1140    1141  
+  1146    1153    1153    1168    1191    1195    1211  
+  1212    1212    1218    1221    1232    1234    1243  
+  1251    1253    1255    1257    1264    1283    1313  
+  1313    1313    1313    1317    1318    1319    1333  
+  1334    1335    1335    1345    1351    1353    1367  
+  1373    1385    1414    1414    1415    1426    1432  
+  1439    1440    1448    1450    1452    1461    1464  
+  1483    1494    1512    1514    1515    1515    1550  
+  1551    1552    1616    1616    1628    1647    1665  
+  1667    1715    1721    1777    1791    1818    1818  
+  1828    1868    1917    1953    1987    2111    2115  
+  2117    2124    2127    2133    2146    2153    2156  
+  2174    2175    2212    2221    2229    2231    2244  
+  2265    2312    2313    2315    2317    2317    2323  
+  2324    2332    2341    2342    2343    2381    2400  
+  2410    2411    2414    2416    2416    2417    2430  
+  2435    2436    2444    2446    2449    2455    2515  
+  2515    2515    2524    2610    2611    2615    2617  
+  2618    2659    2665    2717    2826    2896    2910  
+  2911    2912    2912    2918    2919    2938    2966  
+  3113    3115    3162    3183    3216    3217    3219  
+  3234    3240    3243    3314    3317    3326    3332  
+  3339    3353    3418    3427    3451    3455    3472  
+  3515    3524    3611    3717    3717    3827    4212  
+  4272    4311    4312    4317    4318    4320    4321  
+  4414    4425    4447    4828    5183    5223    5651  
+  5999    6111    6547    8276    9999    9999    9999  
+  9999    9999    9999    9999    9999    9999    9999  
+  9999    9999    9999    9999    9999    9999    9999  
+  9999    9999    9999    9999    9999    9999    9999  
+  9999    9999    9999    9999    9999    9999  
+
+      Length =              230
+  Est Median =             3772
+     Minimum =             1000
+      Median =             2341
+     Maximum =             9999
+     Average =             3343
+       Beta  =     101565960155
+ Err Percent =               61
+

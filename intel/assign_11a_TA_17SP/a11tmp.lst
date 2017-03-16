@@ -1,0 +1,824 @@
+     1                                 %line 1+1 a11tmp.asm
+     2                                 
+     3                                 
+     4                                 
+     5                                 
+     6                                 
+     7                                 
+     8                                 
+     9                                 
+    10                                 [section .data]
+    11                                 
+    12                                 
+    13                                 
+    14                                 
+    15                                 LF equ 10
+    16                                 NULL equ 0
+    17                                 SPACE equ 0x20
+    18                                 
+    19                                 TRUE equ 1
+    20                                 FALSE equ 0
+    21                                 
+    22                                 SUCCESS equ 0
+    23                                 NOSUCCESS equ 1
+    24                                 
+    25                                 STDIN equ 0
+    26                                 STDOUT equ 1
+    27                                 STDERR equ 2
+    28                                 
+    29                                 SYS_read equ 0
+    30                                 SYS_write equ 1
+    31                                 SYS_open equ 2
+    32                                 SYS_close equ 3
+    33                                 SYS_fork equ 57
+    34                                 SYS_exit equ 60
+    35                                 SYS_creat equ 85
+    36                                 SYS_time equ 201
+    37                                 
+    38                                 O_CREAT equ 0x40
+    39                                 O_TRUNC equ 0x200
+    40                                 O_APPEND equ 0x400
+    41                                 
+    42                                 O_RDONLY equ 000000
+    43                                 O_WRONLY equ 000001
+    44                                 O_RDWR equ 000002
+    45                                 
+    46                                 S_IRUSR equ 00400
+    47                                 S_IWUSR equ 00200
+    48                                 S_IXUSR equ 00100
+    49                                 
+    50                                 
+    51                                 
+    52                                 
+    53                                 MIN_FILE_LEN equ 5
+    54                                 BUFF_SIZE equ 1000000
+    55                                 
+    56                                 
+    57                                 
+    58                                 
+    59 00000000 00                     eof db FALSE
+    60                                 
+    61 00000001 55736167653A202E2F-    usageMsg db "Usage: ./thumb <inputFile.bmp> "
+    62 00000001 7468756D62203C696E-
+    63 00000001 70757446696C652E62-
+    64 00000001 6D703E20           
+    65 00000020 3C6F75747075744669-     db "<outputFile.bmp>", LF, NULL
+    66 00000020 6C652E626D703E0A00 
+    67 00000032 4572726F722C20696E-    errIncomplete db "Error, incomplete command line arguments.", LF, NULL
+    68 00000032 636F6D706C65746520-
+    69 00000032 636F6D6D616E64206C-
+    70 00000032 696E6520617267756D-
+    71 00000032 656E74732E0A00     
+    72 0000005D 4572726F722C20746F-    errExtra db "Error, too many command line arguments.", LF, NULL
+    73 0000005D 6F206D616E7920636F-
+    74 0000005D 6D6D616E64206C696E-
+    75 0000005D 6520617267756D656E-
+    76 0000005D 74732E0A00         
+    77 00000086 4572726F722C20696E-    errReadSpec db "Error, invalid read specifier.", LF, NULL
+    78 00000086 76616C696420726561-
+    79 00000086 642073706563696669-
+    80 00000086 65722E0A00         
+    81 000000A6 4572726F722C20696E-    errWriteSpec db "Error, invalid write specifier.", LF, NULL
+    82 000000A6 76616C696420777269-
+    83 000000A6 746520737065636966-
+    84 000000A6 6965722E0A00       
+    85 000000C7 4572726F722C20696E-    errReadName db "Error, invalid source file name.  Must be '.bmp' file.", LF, NULL
+    86 000000C7 76616C696420736F75-
+    87 000000C7 7263652066696C6520-
+    88 000000C7 6E616D652E20204D75-
+    89 000000C7 737420626520272E62-
+    90 000000C7 6D70272066696C652E-
+    91 000000C7 0A00               
+    92 000000FF 4572726F722C20696E-    errWriteName db "Error, invalid output file name.  Must be '.bmp' file.", LF, NULL
+    93 000000FF 76616C6964206F7574-
+    94 000000FF 7075742066696C6520-
+    95 000000FF 6E616D652E20204D75-
+    96 000000FF 737420626520272E62-
+    97 000000FF 6D70272066696C652E-
+    98 000000FF 0A00               
+    99 00000137 4572726F722C20756E-    errReadFile db "Error, unable to open input file.", LF, NULL
+   100 00000137 61626C6520746F206F-
+   101 00000137 70656E20696E707574-
+   102 00000137 2066696C652E0A00   
+   103 0000015A 4572726F722C20756E-    errWriteFile db "Error, unable to open output file.", LF, NULL
+   104 0000015A 61626C6520746F206F-
+   105 0000015A 70656E206F75747075-
+   106 0000015A 742066696C652E0A00 
+   107                                 
+   108                                 
+   109                                 
+   110                                 
+   111                                 HEADER_SIZE equ 138
+   112                                 
+   113 0000017E 4572726F722C20756E-    errReadHdr db "Error, unable to read header from source image file."
+   114 0000017E 61626C6520746F2072-
+   115 0000017E 656164206865616465-
+   116 0000017E 722066726F6D20736F-
+   117 0000017E 7572636520696D6167-
+   118 0000017E 652066696C652E     
+   119 000001B2 0A00                    db LF, NULL
+   120 000001B4 4572726F722C20696E-    errFileType db "Error, invalid file signature.", LF, NULL
+   121 000001B4 76616C69642066696C-
+   122 000001B4 65207369676E617475-
+   123 000001B4 72652E0A00         
+   124 000001D4 4572726F722C20756E-    errDepth db "Error, unsupported color depth.  Must be 24-bit color."
+   125 000001D4 737570706F72746564-
+   126 000001D4 20636F6C6F72206465-
+   127 000001D4 7074682E20204D7573-
+   128 000001D4 742062652032342D62-
+   129 000001D4 697420636F6C6F722E 
+   130 0000020A 0A00                    db LF, NULL
+   131 0000020C 4572726F722C206F6E-    errCompType db "Error, only non-compressed images are supported."
+   132 0000020C 6C79206E6F6E2D636F-
+   133 0000020C 6D7072657373656420-
+   134 0000020C 696D61676573206172-
+   135 0000020C 6520737570706F7274-
+   136 0000020C 65642E             
+   137 0000023C 0A00                    db LF, NULL
+   138 0000023E 4572726F722C206269-    errSize db "Error, bitmap block size inconsistant.", LF, NULL
+   139 0000023E 746D617020626C6F63-
+   140 0000023E 6B2073697A6520696E-
+   141 0000023E 636F6E73697374616E-
+   142 0000023E 742E0A00           
+   143 00000266 4572726F722C20756E-    errWriteHdr db "Error, unable to write header to output image file.", LF,
+   144 00000266 61626C6520746F2077-
+   145 00000266 726974652068656164-
+   146 00000266 657220746F206F7574-
+   147 00000266 70757420696D616765-
+   148 00000266 2066696C652E0A     
+   149 0000029A 50726F6772616D2074-     db "Program terminated.", LF, NULL
+   150 0000029A 65726D696E61746564-
+   151 0000029A 2E0A00             
+   152                                 
+   153                                 
+   154                                 
+   155                                 
+   156 000002AF 40420F0000000000       buffMax dq BUFF_SIZE
+   157 000002B7 40420F0000000000       curr dq BUFF_SIZE
+   158 000002BF 00                     wasEOF db FALSE
+   159 000002C0 0000000000000000       pixelCount dq 0
+   160                                 
+   161 000002C8 4572726F722C207265-    errRead db "Error, reading from source image file.", LF,
+   162 000002C8 6164696E672066726F-
+   163 000002C8 6D20736F7572636520-
+   164 000002C8 696D6167652066696C-
+   165 000002C8 652E0A             
+   166 000002EF 50726F6772616D2074-     db "Program terminated.", LF, NULL
+   167 000002EF 65726D696E61746564-
+   168 000002EF 2E0A00             
+   169                                 
+   170                                 
+   171                                 
+   172                                 
+   173 00000304 4572726F722C207772-    errWrite db "Error, writting to output image file.", LF,
+   174 00000304 697474696E6720746F-
+   175 00000304 206F75747075742069-
+   176 00000304 6D6167652066696C65-
+   177 00000304 2E0A               
+   178 0000032A 50726F6772616D2074-     db "Program terminated.", LF, NULL
+   179 0000032A 65726D696E61746564-
+   180 0000032A 2E0A00             
+   181                                 
+   182                                 
+   183                                 
+   184                                 
+   185                                 
+   186                                 [section .bss]
+   187                                 
+   188 00000000 <gap>                  buffer resb BUFF_SIZE
+   189 000F4240 <gap>                  header resb HEADER_SIZE
+   190                                 
+   191                                 
+   192                                 
+   193                                 
+   194                                 [section .text]
+   195                                 
+   196                                 
+   197                                 
+   198                                 
+   199                                 
+   200                                 
+   201                                 
+   202                                 
+   203                                 
+   204                                 
+   205                                 
+   206                                 
+   207                                 
+   208                                 
+   209                                 
+   210                                 
+   211                                 
+   212                                 
+   213                                 
+   214                                 
+   215                                 
+   216                                 
+   217                                 
+   218                                 [global getImageFileNames]
+   219                                 getImageFileNames:
+   220 00000000 55                      push rbp
+   221 00000001 53                      push rbx
+   222 00000002 4154                    push r12
+   223 00000004 4155                    push r13
+   224 00000006 4156                    push r14
+   225 00000008 4157                    push r15
+   226                                 
+   227                                 getImageFileNamesStart:
+   228 0000000A 4883FF01                cmp rdi, 1
+   229 0000000E 0F84AA000000            je errorUsage
+   230                                 
+   231 00000014 4883FF03                cmp rdi, 3
+   232 00000018 0F8CA9000000            jl errorIncomplete
+   233                                 
+   234 0000001E 4883FF03                cmp rdi, 3
+   235 00000022 0F8FA8000000            jg errorExtra
+   236                                 
+   237 00000028 488B5E08                mov rbx, qword [rsi + 8]
+   238 0000002C 803B2E                  cmp byte [rbx], "."
+   239 0000002F 0F84B6000000            je errorReadName
+   240                                 
+   241                                 
+   242                                 readNameLp:
+   243 00000035 48FFC3                  inc rbx
+   244 00000038 803B00                  cmp byte [rbx], NULL
+   245 0000003B 0F84AA000000            je errorReadName
+   246 00000041 803B2E                  cmp byte [rbx], "."
+   247 00000044 75ED                    jne readNameLp
+   248 00000046 48FFC3                  inc rbx
+   249 00000049 813B626D7000            cmp dword [rbx], 0x00706d62
+   250 0000004F 0F8596000000            jne errorReadName
+   251                                 
+   252                                 
+   253 00000055 488B5E10                mov rbx, qword [rsi + 16]
+   254 00000059 803B2E                  cmp byte [rbx], "."
+   255 0000005C 0F8492000000            je errorWriteName
+   256                                 
+   257                                 writeNameLp:
+   258 00000062 48FFC3                  inc rbx
+   259 00000065 803B00                  cmp byte [rbx], NULL
+   260 00000068 0F8486000000            je errorWriteName
+   261 0000006E 803B2E                  cmp byte [rbx], "."
+   262 00000071 75ED                    jne writeNameLp
+   263 00000073 48FFC3                  inc rbx
+   264 00000076 813B626D7000            cmp dword [rbx], 0x00706d62
+   265 0000007C 757A                    jne errorWriteName
+   266                                 
+   267                                 
+   268                                 
+   269 0000007E 56                      push rsi
+   270 0000007F 52                      push rdx
+   271 00000080 51                      push rcx
+   272                                 
+   273                                 
+   274 00000081 48C7C002000000          mov rax, SYS_open
+   275 00000088 488B7E08                mov rdi, qword [rsi + 8]
+   276 0000008C 48C7C600000000          mov rsi, O_RDONLY
+   277 00000093 0F05                    syscall
+   278                                 
+   279 00000095 59                      pop rcx
+   280 00000096 5A                      pop rdx
+   281 00000097 5E                      pop rsi
+   282                                 
+   283 00000098 4883F800                cmp rax, 0
+   284 0000009C 7C63                    jl errorReadFile
+   285                                 
+   286 0000009E 488902                  mov qword [rdx], rax
+   287                                 
+   288                                 
+   289                                 
+   290 000000A1 56                      push rsi
+   291 000000A2 51                      push rcx
+   292                                 
+   293                                 
+   294 000000A3 48C7C055000000          mov rax, SYS_creat
+   295 000000AA 488B7E10                mov rdi, qword [rsi + 16]
+   296 000000AE 48C7C680010000          mov rsi, S_IRUSR | S_IWUSR
+   297 000000B5 0F05                    syscall
+   298                                 
+   299 000000B7 59                      pop rcx
+   300 000000B8 5E                      pop rsi
+   301                                 
+   302 000000B9 4883F800                cmp rax, 0
+   303 000000BD 7C4B                    jl errorWriteFile
+   304                                 
+   305 000000BF 488901                  mov qword [rcx], rax
+   306 000000C2 EB60                    jmp getImageFileNamesSuccess
+   307                                 
+   308                                 
+   309                                 errorUsage:
+   310 000000C4 48C7C0[00000000]        mov rax, usageMsg
+   311 000000CB EB46                    jmp getImageFileNamesPrint
+   312                                 
+   313                                 errorIncomplete:
+   314 000000CD 48C7C0[00000000]        mov rax, errIncomplete
+   315 000000D4 EB3D                    jmp getImageFileNamesPrint
+   316                                 
+   317                                 errorExtra:
+   318 000000D6 48C7C0[00000000]        mov rax, errExtra
+   319 000000DD EB34                    jmp getImageFileNamesPrint
+   320                                 
+   321                                 errorReadSpec:
+   322 000000DF 48C7C0[00000000]        mov rax, errReadSpec
+   323 000000E6 EB2B                    jmp getImageFileNamesPrint
+   324                                 
+   325                                 errorWriteSpec:
+   326 000000E8 48C7C0[00000000]        mov rax, errWriteSpec
+   327 000000EF EB22                    jmp getImageFileNamesPrint
+   328                                 
+   329                                 errorReadName:
+   330 000000F1 48C7C0[00000000]        mov rax, errReadName
+   331 000000F8 EB19                    jmp getImageFileNamesPrint
+   332                                 
+   333                                 errorWriteName:
+   334 000000FA 48C7C0[00000000]        mov rax, errWriteName
+   335 00000101 EB10                    jmp getImageFileNamesPrint
+   336                                 
+   337                                 errorReadFile:
+   338 00000103 48C7C0[00000000]        mov rax, errReadFile
+   339 0000010A EB07                    jmp getImageFileNamesPrint
+   340                                 
+   341                                 errorWriteFile:
+   342 0000010C 48C7C0[00000000]        mov rax, errWriteFile
+   343 00000113 EBFE                    jmp getImageFileNamesPrint
+   344                                 
+   345                                 getImageFileNamesPrint:
+   346 00000115 4889C7                  mov rdi, rax
+   347 00000118 E8BB020000              call printString
+   348 0000011D 48C7C000000000          mov rax, FALSE
+   349 00000124 EB05                    jmp getImageFilesNamesEnd
+   350                                 
+   351                                 
+   352                                 getImageFileNamesSuccess:
+   353 00000126 48C7C001000000          mov rax, TRUE
+   354                                 
+   355                                 getImageFilesNamesEnd:
+   356 0000012D 415F                    pop r15
+   357 0000012F 415E                    pop r14
+   358 00000131 415D                    pop r13
+   359 00000133 415C                    pop r12
+   360 00000135 5B                      pop rbx
+   361 00000136 5D                      pop rbp
+   362 00000137 C3                      ret
+   363                                 
+   364                                 
+   365                                 
+   366                                 
+   367                                 
+   368                                 
+   369                                 
+   370                                 
+   371                                 
+   372                                 
+   373                                 
+   374                                 
+   375                                 
+   376                                 
+   377                                 
+   378                                 
+   379                                 
+   380                                 
+   381                                 
+   382                                 
+   383                                 
+   384                                 
+   385                                 
+   386                                 
+   387                                 
+   388                                 
+   389                                 
+   390                                 
+   391                                 
+   392                                 
+   393                                 
+   394                                 
+   395                                 
+   396                                 
+   397                                 
+   398                                 
+   399                                 
+   400                                 
+   401                                 
+   402                                 
+   403                                 
+   404                                 
+   405                                 
+   406                                 
+   407                                 [global setImageInfo]
+   408                                 setImageInfo:
+   409 00000138 55                      push rbp
+   410 00000139 53                      push rbx
+   411 0000013A 4154                    push r12
+   412 0000013C 4155                    push r13
+   413 0000013E 4156                    push r14
+   414 00000140 4157                    push r15
+   415                                 
+   416                                 setImageInfoStart:
+   417 00000142 4889FD                  mov rbp, rdi
+   418 00000145 4889F3                  mov rbx, rsi
+   419 00000148 4989D4                  mov r12, rdx
+   420 0000014B 4989CD                  mov r13, rcx
+   421 0000014E 4D89C6                  mov r14, r8
+   422 00000151 4D89CF                  mov r15, r9
+   423                                 
+   424                                 
+   425 00000154 48C7C000000000          mov rax, SYS_read
+   426 0000015B 4889EF                  mov rdi, rbp
+   427 0000015E 48C7C6[00000000]        mov rsi, header
+   428 00000165 48C7C28A000000          mov rdx, HEADER_SIZE
+   429 0000016C 0F05                    syscall
+   430                                 
+   431 0000016E 48C7C000000000          mov rax, 0
+   432 00000175 0F8CA7000000            jl errorReadHdr
+   433                                 
+   434                                 
+   435 0000017B 66813C25[00000000]-     cmp word [header], 0x4d42
+   436 0000017B 424D               
+   437 00000185 0F85A0000000            jne errorFileType
+   438                                 
+   439                                 
+   440 0000018B 66833C25[1C000000]-     cmp word [header + 28], 24
+   441 0000018B 18                 
+   442 00000194 0F859A000000            jne errorDepth
+   443                                 
+   444                                 
+   445 0000019A 833C25[1E000000]00      cmp dword [header + 30], 0
+   446 000001A2 0F8595000000            jne errorCompType
+   447                                 
+   448                                 
+   449 000001A8 8B0425[0A000000]        mov eax, dword [header + 10]
+   450 000001AF 448B1425[22000000]      mov r10d, dword [header + 34]
+   451 000001B7 4401D0                  add eax, r10d
+   452 000001BA 448B1425[02000000]      mov r10d, dword [header + 2]
+   453 000001C2 4439D0                  cmp eax, r10d
+   454 000001C5 0F857B000000            jne errorSize
+   455                                 
+   456                                 
+   457 000001CB 8B0425[12000000]        mov eax, dword [header + 18]
+   458 000001D2 41890424                mov dword [r12], eax
+   459 000001D6 8B0425[16000000]        mov eax, dword [header + 22]
+   460 000001DD 41894500                mov dword [r13], eax
+   461                                 
+   462                                 
+   463 000001E1 4489C0                  mov eax, r8d
+   464 000001E4 41F7E1                  mul r9d
+   465 000001E7 058A000000              add eax, 138
+   466 000001EC 890425[02000000]        mov dword [header + 2], eax
+   467                                 
+   468 000001F3 44890425[12000000]      mov dword [header + 18], r8d
+   469 000001FB 44890C25[16000000]      mov dword [header + 22], r9d
+   470                                 
+   471                                 
+   472                                 
+   473 00000203 48C7C001000000          mov rax, SYS_write
+   474 0000020A 4889DF                  mov rdi, rbx
+   475 0000020D 48C7C6[00000000]        mov rsi, header
+   476 00000214 48C7C28A000000          mov rdx, HEADER_SIZE
+   477 0000021B 0F05                    syscall
+   478                                 
+   479 0000021D 48C7C000000000          mov rax, 0
+   480 00000224 7C2D                    jl errorWriteHdr
+   481                                 
+   482 00000226 EB45                    jmp setImageInfoSuccess
+   483                                 
+   484                                 
+   485                                 errorReadHdr:
+   486 00000228 48C7C0[00000000]        mov rax, errReadHdr
+   487 0000022F EB2B                    jmp setImageInforPrint
+   488                                 
+   489                                 errorFileType:
+   490 00000231 48C7C0[00000000]        mov rax, errFileType
+   491 00000238 EB22                    jmp setImageInforPrint
+   492                                 
+   493                                 errorDepth:
+   494 0000023A 48C7C0[00000000]        mov rax, errDepth
+   495 00000241 EB19                    jmp setImageInforPrint
+   496                                 
+   497                                 errorCompType:
+   498 00000243 48C7C0[00000000]        mov rax, errCompType
+   499 0000024A EB10                    jmp setImageInforPrint
+   500                                 
+   501                                 errorSize:
+   502 0000024C 48C7C0[00000000]        mov rax, errSize
+   503 00000253 EB07                    jmp setImageInforPrint
+   504                                 
+   505                                 errorWriteHdr:
+   506 00000255 48C7C0[00000000]        mov rax, errWriteHdr
+   507 0000025C EBFE                    jmp setImageInforPrint
+   508                                 
+   509                                 setImageInforPrint:
+   510 0000025E 4889C7                  mov rdi, rax
+   511 00000261 E872010000              call printString
+   512 00000266 48C7C000000000          mov rax, FALSE
+   513 0000026D EB05                    jmp setImageInfoEnd
+   514                                 
+   515                                 
+   516                                 setImageInfoSuccess:
+   517 0000026F 48C7C001000000          mov rax, TRUE
+   518                                 
+   519                                 setImageInfoEnd:
+   520 00000276 415F                    pop r15
+   521 00000278 415E                    pop r14
+   522 0000027A 415D                    pop r13
+   523 0000027C 415C                    pop r12
+   524 0000027E 5B                      pop rbx
+   525 0000027F 5D                      pop rbp
+   526 00000280 C3                      ret
+   527                                 
+   528                                 
+   529                                 
+   530                                 
+   531                                 
+   532                                 
+   533                                 
+   534                                 
+   535                                 
+   536                                 
+   537                                 
+   538                                 
+   539                                 
+   540                                 
+   541                                 
+   542                                 
+   543                                 
+   544                                 
+   545                                 
+   546                                 
+   547                                 
+   548                                 
+   549                                 
+   550                                 
+   551                                 
+   552                                 
+   553                                 
+   554                                 
+   555                                 
+   556                                 
+   557                                 
+   558                                 
+   559                                 
+   560                                 
+   561                                 
+   562                                 
+   563                                 
+   564                                 
+   565                                 
+   566                                 
+   567                                 
+   568                                 
+   569                                 
+   570                                 
+   571                                 
+   572                                 
+   573                                 
+   574                                 
+   575                                 
+   576                                 
+   577                                 
+   578                                 
+   579                                 
+   580                                 
+   581                                 
+   582                                 
+   583                                 
+   584                                 
+   585                                 
+   586                                 
+   587                                 
+   588                                 
+   589                                 [global readRow]
+   590                                 readRow:
+   591 00000281 55                      push rbp
+   592 00000282 53                      push rbx
+   593 00000283 4154                    push r12
+   594 00000285 4155                    push r13
+   595 00000287 4156                    push r14
+   596 00000289 4157                    push r15
+   597                                 
+   598                                 readRowStart:
+   599 0000028B 4989FC                  mov r12, rdi
+   600 0000028E 4989D6                  mov r14, rdx
+   601 00000291 49C7C700000000          mov r15, 0
+   602                                 
+   603 00000298 4889F0                  mov rax, rsi
+   604 0000029B 49C7C503000000          mov r13, 3
+   605 000002A2 49F7E5                  mul r13
+   606 000002A5 4989C5                  mov r13, rax
+   607                                 
+   608                                 bufferLp:
+   609 000002A8 4D39EF                  cmp r15, r13
+   610 000002AB 0F838F000000            jae bufferLpDone
+   611 000002B1 488B1C25[00000000]      mov rbx, qword [curr]
+   612 000002B9 483B1C25[00000000]      cmp rbx, qword [buffMax]
+   613 000002C1 7257                    jb insertChar
+   614                                 
+   615 000002C3 803C25[00000000]01      cmp byte [wasEOF], TRUE
+   616 000002CB 0F8482000000            je readRowFalse
+   617                                 
+   618                                 
+   619 000002D1 48C7C000000000          mov rax, SYS_read
+   620 000002D8 4C89E7                  mov rdi, r12
+   621 000002DB 48C7C6[00000000]        mov rsi, buffer
+   622 000002E2 488B1425[00000000]      mov rdx, qword [buffMax]
+   623 000002EA 0F05                    syscall
+   624                                 
+   625 000002EC 4883F800                cmp rax, 0
+   626 000002F0 7C54                    jl errorRead
+   627                                 
+   628 000002F2 4883F800                cmp rax, 0
+   629 000002F6 745F                    je readRowFalse
+   630                                 
+   631 000002F8 483D40420F00            cmp rax, BUFF_SIZE
+   632 000002FE 730E                    jae eofDone
+   633 00000300 48890425[00000000]      mov qword [buffMax], rax
+   634 00000308 C60425[00000000]01      mov byte [wasEOF], TRUE
+   635                                 
+   636                                 eofDone:
+   637 00000310 48C70425[00000000]-     mov qword [curr], 0
+   638 00000310 00000000           
+   639                                 
+   640                                 insertChar:
+   641                                 
+   642 0000031C 49C7C300000000          mov r11, 0
+   643 00000323 488B1C25[00000000]      mov rbx, qword [curr]
+   644 0000032B 448A9B[00000000]        mov r11b, byte [buffer + rbx]
+   645 00000332 47881C3E                mov byte [r14 + r15], r11b
+   646 00000336 48FF0425[00000000]      inc qword [curr]
+   647 0000033E 49FFC7                  inc r15
+   648 00000341 E95DFFFFFF              jmp bufferLp
+   649                                 
+   650                                 
+   651                                 
+   652                                 bufferLpDone:
+   653 00000346 EB18                    jmp readRowTrue
+   654                                 
+   655                                 errorRead:
+   656 00000348 48C7C0[00000000]        mov rax, errRead
+   657 0000034F EBFE                    jmp readRowPrint
+   658                                 
+   659                                 readRowPrint:
+   660 00000351 4889C7                  mov rdi, rax
+   661 00000354 E87F000000              call printString
+   662                                 
+   663                                 readRowFalse:
+   664 00000359 48C7C000000000          mov rax, FALSE
+   665 00000360 EB05                    jmp readRowEnd
+   666                                 
+   667                                 readRowTrue:
+   668 00000362 48C7C001000000          mov rax, TRUE
+   669                                 
+   670                                 readRowEnd:
+   671 00000369 415F                    pop r15
+   672 0000036B 415E                    pop r14
+   673 0000036D 415D                    pop r13
+   674 0000036F 415C                    pop r12
+   675 00000371 5B                      pop rbx
+   676 00000372 5D                      pop rbp
+   677 00000373 C3                      ret
+   678                                 
+   679                                 
+   680                                 
+   681                                 
+   682                                 
+   683                                 
+   684                                 
+   685                                 
+   686                                 
+   687                                 
+   688                                 
+   689                                 
+   690                                 
+   691                                 
+   692                                 
+   693                                 
+   694                                 
+   695                                 
+   696                                 
+   697                                 
+   698                                 
+   699                                 
+   700                                 
+   701                                 
+   702                                 
+   703                                 
+   704                                 
+   705                                 
+   706                                 
+   707                                 
+   708                                 
+   709                                 
+   710                                 
+   711                                 [global writeRow]
+   712                                 writeRow:
+   713 00000374 55                      push rbp
+   714 00000375 53                      push rbx
+   715 00000376 4154                    push r12
+   716 00000378 4155                    push r13
+   717 0000037A 4156                    push r14
+   718 0000037C 4157                    push r15
+   719                                 
+   720                                 writeRowStart:
+   721 0000037E 4989FC                  mov r12, rdi
+   722 00000381 4989F5                  mov r13, rsi
+   723 00000384 4989D6                  mov r14, rdx
+   724                                 
+   725 00000387 4C89E8                  mov rax, r13
+   726 0000038A 48C7C103000000          mov rcx, 3
+   727 00000391 48F7E1                  mul rcx
+   728 00000394 4989C5                  mov r13, rax
+   729                                 
+   730 00000397 48C7C001000000          mov rax, SYS_write
+   731 0000039E 4C89E7                  mov rdi, r12
+   732 000003A1 4C89F6                  mov rsi, r14
+   733 000003A4 4C89EA                  mov rdx, r13
+   734 000003A7 0F05                    syscall
+   735                                 
+   736 000003A9 4883F800                cmp rax, 0
+   737 000003AD 7C00                    jl errorWrite
+   738                                 
+   739 000003AF EB18                    jmp writeRowSuccess
+   740                                 
+   741                                 errorWrite:
+   742 000003B1 48C7C0[00000000]        mov rax, errWrite
+   743 000003B8 EBFE                    jmp writeRowPrint
+   744                                 
+   745                                 writeRowPrint:
+   746 000003BA 4889C7                  mov rdi, rax
+   747 000003BD E816000000              call printString
+   748 000003C2 48C7C000000000          mov rax, FALSE
+   749 000003C9 EB05                    jmp writeRowEnd
+   750                                 
+   751                                 writeRowSuccess:
+   752 000003CB 48C7C001000000          mov rax, TRUE
+   753                                 
+   754                                 writeRowEnd:
+   755 000003D2 415F                    pop r15
+   756 000003D4 415E                    pop r14
+   757 000003D6 415D                    pop r13
+   758 000003D8 415C                    pop r12
+   759 000003DA 5B                      pop rbx
+   760 000003DB 5D                      pop rbp
+   761 000003DC C3                      ret
+   762                                 
+   763                                 
+   764                                 
+   765                                 
+   766                                 
+   767                                 
+   768                                 
+   769                                 
+   770                                 
+   771                                 
+   772                                 
+   773                                 
+   774                                 
+   775                                 
+   776                                 
+   777                                 
+   778                                 [global printString]
+   779                                 printString:
+   780 000003DD 55                      push rbp
+   781 000003DE 4889E5                  mov rbp, rsp
+   782 000003E1 53                      push rbx
+   783 000003E2 56                      push rsi
+   784 000003E3 57                      push rdi
+   785 000003E4 52                      push rdx
+   786                                 
+   787                                 
+   788                                 
+   789                                 
+   790 000003E5 4889FB                  mov rbx, rdi
+   791 000003E8 48C7C200000000          mov rdx, 0
+   792                                 strCountLoop:
+   793 000003EF 803B00                  cmp byte [rbx], NULL
+   794 000003F2 7406                    je strCountDone
+   795 000003F4 48FFC3                  inc rbx
+   796 000003F7 48FFC2                  inc rdx
+   797 000003FA EBF1                    jmp strCountLoop
+   798                                 strCountDone:
+   799                                 
+   800 000003FC 4883FA00                cmp rdx, 0
+   801 00000400 7411                    je prtDone
+   802                                 
+   803                                 
+   804                                 
+   805                                 
+   806 00000402 48C7C001000000          mov rax, SYS_write
+   807 00000409 4889FE                  mov rsi, rdi
+   808 0000040C 48C7C701000000          mov rdi, STDOUT
+   809                                 
+   810 00000413 0F05                    syscall
+   811                                 
+   812                                 
+   813                                 
+   814                                 
+   815                                 prtDone:
+   816 00000415 5A                      pop rdx
+   817 00000416 5F                      pop rdi
+   818 00000417 5E                      pop rsi
+   819 00000418 5B                      pop rbx
+   820 00000419 5D                      pop rbp
+   821 0000041A C3                      ret
+   822                                 
+   823                                 
+   824                                 

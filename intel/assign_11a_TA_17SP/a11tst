@@ -1,0 +1,284 @@
+#!/bin/bash
+# CS 218
+# Assignment #11 test script.
+#
+# ----------
+#  Initial checks.
+#	Ensure executable file exists.
+#
+if [ -z $1 ]; then
+	echo "Error, must provide executable file name."
+	exit
+fi
+#
+if [ ! -e $1 ] || [ ! -x $1 ]; then
+	echo "Error, unable to find $1 executable file."
+	exit
+fi
+#
+if	[ ! -e img1.bmp ] ||
+	[ ! -e img2.bmp ] ||
+	[ ! -e img3.bmp ] ||
+	[ ! -e img4.bmp ] ||
+	[ ! -e img5.bmp ]; then
+	echo "Error, unable to find test files."
+	exit
+fi
+#
+# ---------------------------------------------------------
+#  Define script variables and function
+#
+bolded=`tput bold`
+normal=`tput sgr0`
+#
+pause() {
+	if [ "$1" = "skip" ]; then
+		echo
+	else
+		echo
+		echo -n "Press return to continue"
+		read
+		echo
+		echo "------------------------"
+	fi
+}
+#
+# ---------------------------------------------------------
+# skip command line arguments tests...
+#
+if [ ! "$2" == "ex" ]; then
+#
+# ---------------------------------------------------------
+# Begin error tests.
+#
+clear
+echo
+echo "${bolded}CS 218 - Assignment #11 Testing Script${normal}"
+echo
+echo
+echo
+echo
+echo "Note, this utility assumes the program is working or very"
+echo "      close to working.  Testing on an incomplete"
+echo "      program will not be useful."
+echo
+echo "Note, You can type cntl-c to terminate an in-process script."
+echo
+echo
+echo
+pause $2
+clear
+#
+# -----
+#  Initial checks for usage message and incorrect argument counts.
+#
+echo "-------------------------------"
+echo "Initial checks for usage message and incorrect argument counts."
+#
+echo
+echo
+echo
+echo "${bolded}Test -> should show usage message${normal}"
+echo "./"$1""
+./$1
+#
+echo
+echo
+echo
+echo "${bolded}Test -> should show usage message${normal}"
+echo "./"$1""
+./$1
+#
+echo
+echo
+echo
+echo
+echo
+#
+pause $2
+clear
+#
+echo "-------------------------------"
+echo "Command line argument count checks -> incomplete."
+#
+echo
+echo
+echo
+echo "${bolded}Test -> should show: Error, incomplete command line arguments.${normal}"
+echo "./"$1" tooFew"
+./$1 tooFew
+#
+echo
+echo "${bolded}Test -> should show: Error, incomplete command line arguments.${normal}"
+echo "./"$1" none"
+./$1   none
+#
+echo
+echo "${bolded}Test -> should show: Error, incomplete command line arguments.${normal}"
+echo "./"$1" ."
+./$1 .
+#
+echo
+echo
+echo
+pause $2
+clear
+#
+# ---------
+#  
+#
+echo "-------------------------------"
+echo "Command line argument count checks -> too many."
+#
+echo
+echo
+echo
+echo "${bolded}Test -> should show: Error, too many command line arguments.${normal}"
+echo "./"$1" too many args on this line"
+./$1 too many args on this line
+#
+echo
+echo "${bolded}Test -> should show: Error, too many command line arguments.${normal}"
+echo "./"$1" image0 bmp tmp.bmp"
+./$1  image0 bmp tmp.bmp
+#
+echo
+echo "${bolded}Test -> should show: Error, too many command line arguments.${normal}"
+echo "./"$1" image0.bmp tmp.bmp tmp"
+./$1 image0.bmp tmp.bmp tmp
+#
+echo
+echo
+echo
+pause $2
+clear
+#
+# -----
+#  Input file argument checks
+#
+echo "-------------------------------"
+echo "Error Testing -> Input File Option -> <fileName.bmp>"
+echo
+#
+echo
+echo "${bolded}Test -> should show: Error, unable to open input file.${normal}"
+echo "./"$1" nonExistant.bmp tmp.bmp"
+./$1 nonExistant.bmp tmp.bmp
+#
+echo
+echo "${bolded}Test -> should show: Error, invalid source file name.  Must be '.bmp' file.${normal}"
+echo "./"$1"  img0.bp tmp.bmp"
+./$1 img0.bp tmp.bmp
+#
+echo
+echo "${bolded}Test -> should show: Error, invalid source file name.  Must be '.bmp' file.${normal}"
+echo "./"$1"  img0.bmpp tmp.bmp"
+./$1 img0.bmpp tmp.bmp
+#
+echo
+echo
+pause $2
+clear
+#
+echo "-------------------------------"
+echo "Error Testing -> Output File Option -> <fileName.bmp>"
+echo
+#
+echo
+echo "${bolded}Test -> should show: Error, invalid output file name.  Must be '.bmp' file.${normal}"
+echo "./"$1" image0.bmp tmp.bmpp"
+./$1 image0.bmp tmp.bmpp
+#
+echo
+echo "${bolded}Test -> should show: Error, invalid output file name.  Must be '.bmp' file.${normal}"
+echo "./"$1" image0.bmp tmp.bp"
+./$1 image0.bmp tmp.bp
+#
+echo "test file" > nonAccessableFile.bmp
+chmod -rw nonAccessableFile.bmp
+echo
+echo "${bolded}Test -> should show: Error, unable to open output file.${normal}"
+echo "./"$1" image0.bmp nonAccessableFile.bmp"
+./$1 image0.bmp nonAccessableFile.bmp
+#
+chmod +rw nonAccessableFile.bmp
+rm nonAccessableFile.bmp
+#
+echo
+echo "${bolded}Test -> should show: Error, unable to open output file.${normal}"
+echo "./"$1" image0.bmp tm/.bmp"
+./$1 image0.bmp tm/.bmp
+#
+pause $2
+clear
+#
+# -----
+#  Invalid input file format checks
+#
+echo "-------------------------------"
+echo "Error Testing -> Invalid Input File Format Checks"
+echo
+#
+echo
+echo "${bolded}Test -> should show: Error, invalid file signature.${normal}"
+echo "./"$1" imgBad0.bmp tmp.bmp"
+./$1 imgBad0.bmp tmp.bmp
+#
+echo
+echo "${bolded}Test -> should show: Error, unsupported color depth.  Must be 24-bit color.${normal}"
+echo "./"$1" imgBad1.bmp tmp.bmp"
+./$1 imgBad1.bmp tmp.bmp
+#
+#
+echo
+echo "${bolded}Test -> should show: Error, only non-compressed images are supported.${normal}"
+echo "./"$1" imgBad2.bmp tmp.bmp"
+./$1 imgBad2.bmp tmp.bmp
+#
+echo
+echo "${bolded}Test -> should show: Error, bitmap block size inconsistant.${normal}"
+echo "./"$1" imgBad3.bmp tmp.bmp"
+./$1 imgBad3.bmp tmp.bmp
+echo
+echo
+rm tmp.bmp
+#
+pause $2
+clear
+#
+# ---------------------
+#
+fi
+#
+# ----------
+# Begin execution tests.
+#
+echo "-------------------------------"
+echo "${bolded}Execution Tests...${normal}"
+echo
+#
+for cnt in {1..11..1}
+do
+	echo
+	echo "${bolded}Test img$cnt.bmp -> tmpImg$cnt.bmp${normal}"
+	echo "./"$1" img$cnt.bmp tmpImg$cnt.bmp"
+	./$1 img$cnt.bmp tmpImg$cnt.bmp
+
+	if `diff tmpImg$cnt.bmp mstrImg$cnt.bmp >/dev/null` ; then
+		echo "Test $cnt Successful"
+	else
+		diff tmpImg$cnt.bmp mstrImg$cnt.bmp
+	fi
+
+	if [ $cnt = 5 ] ; then
+		pause $2
+	fi
+
+done
+#
+#
+# ----------
+#
+echo
+#
+
